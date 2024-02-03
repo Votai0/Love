@@ -3,45 +3,58 @@
 
 <head>
     <meta charSet="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
-
-    <!--<link rel="preload" href="/_next/static/media/c9a5bc6a7c948fb0-s.p.woff2" as="font" crossorigin="" type="font/woff2" />-->
-
-    <link rel="preload" as="image" href="/img/willUBe.gif" >
-    <link rel="stylesheet" href="style/willUBe.css"  >
-    
-    <!--<link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/webpack-7086a7543d1dc029.js" crossorigin="" />-->
-
-
-
-    <!--<script src="/_next/static/chunks/fd9d1056-534a3af521b04580.js" async="" crossorigin=""></script>
-    <script src="/_next/static/chunks/69-5788959f6f1d2963.js" async="" crossorigin=""></script>
-    <script src="/_next/static/chunks/main-app-f5c8d25c8479457f.js" async="" crossorigin=""></script>
-    <script src="/_next/static/chunks/app/page-a53c2c10bc9b282e.js" async=""></script>-->
-    
-    
-    
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preload" as="image" href="/img/willUBe.gif">
+    <link rel="stylesheet" href="style/willUBe.css">
     <title>Valentine&#x27;s Day Card</title>
     <meta name="description" content="Will you be my valentine?" />
-
-    <!--<link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16" />
-    <meta name="next-size-adjust" />
-    <script src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js" crossorigin="" noModule=""></script>-->
 
 </head>
 
 <body>
-    <div >
+    <div>
         <img class="image" src="/img/willUBe.gif" />
 
         <h1 class="question">Will you be my Wife?</h1>
-        
-        <div>
-            <button id="yesButton">Yes</button>
-            <button id="noButton">No</button>
+
+        <div id="inputs">
+            <form action="/thxLove">
+                <input type="submit" id="yesButton" value="Yes">
+            </form>
+            <input type="submit" id="noButton" value="No">
         </div>
     </div>
-   </body>
+
+
+
+    <script>
+        document.getElementById('noButton').addEventListener('click', function () {
+            fetch('/getRandomLine')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('noButton').value = data.line;
+
+
+
+                    // Mevcut boyutları px cinsinden al ve integer değerine çevir
+                    let height = parseInt(document.getElementById('yesButton').style.height, 10) || 0; // Varsayılan değer 0
+                    let width = parseInt(document.getElementById('yesButton').style.width, 10) || 0; // Varsayılan değer 0
+
+                    // Boyutları artır
+                    height += 50;
+                    width += 50;
+
+                    // Yeni boyutları uygula
+                    document.getElementById('yesButton').style.height = height + 'px';
+                    document.getElementById('yesButton').style.width = width + 'px';
+
+                })
+                .catch(error => {
+                    console.error('An error occurred:', error);
+                });
+        });
+    </script>
+
+</body>
 
 </html>
