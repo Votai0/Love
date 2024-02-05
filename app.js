@@ -23,7 +23,7 @@ app.get('/thxLove', operations.getThxLove);
 
 const { getRandomLine } = require('./operations');
 app.get('/getRandomLine', (req, res) => {
-  getRandomLine('db1.txt')
+  getRandomLine('db.txt')
       .then(line => res.send({ line }))
       .catch(err => {
           console.error(err);
